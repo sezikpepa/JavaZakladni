@@ -6,12 +6,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Loads expression from command line and parse them into the tree structure
+ */
 public class CommandLineParser extends BasicExpressionParser{
 
+    /**
+     * Creates new instance of the parser
+     */
     public CommandLineParser(){
 
     }
 
+    /**
+     * It reads the input by lines. Every line is different expression
+     */
     public void loadInput(){
         Scanner consoleReader = new Scanner(System.in);
 

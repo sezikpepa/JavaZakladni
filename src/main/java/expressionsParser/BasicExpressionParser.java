@@ -6,15 +6,37 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
+/**
+ * Provides basic methods which are then used in specific parsers
+ */
 public abstract class BasicExpressionParser implements IExpressionParser{
 
+    /**
+     * Creates new parser
+     */
+    public BasicExpressionParser(){
 
+    }
+
+    /**
+     * List of all string representations of operators which are supported by parsers
+     */
     public static ArrayList<String> OperatorsSigns = new ArrayList<>(Arrays.asList(And.Sign, Or.Sign, Implication.Sign, Equivalent.Sign));
 
     public abstract void loadInput();
 
+    /**
+     * loadInput method loads expressions from different places. It stores them into this variable, so the expression can be
+     * used later - for example parsing into tree structure.
+     */
     protected ArrayList<String> tempExpressions = new ArrayList<String>();
 
+    /**
+     * If the symbol in the expression is operator symbol, Operator node is created. This method decides which node should
+     * be created
+     * @param symbol Text representation of the operator
+     * @return Operator node based on the input string
+     */
     private Operator getOperatorNode(String symbol){
         if(OperatorsSigns.contains(symbol)){
             if(symbol.equals(And.Sign)){
@@ -34,6 +56,11 @@ public abstract class BasicExpressionParser implements IExpressionParser{
         return null;
     }
 
+    /**
+     * If there is enough created nodes for operator and an available operator, nodes should be placed as the children of the operator
+     * @param createdNodes Variables or operators which are already transformed into tree structure
+     * @param unprocessedSymbols Operators which do not have variables, the most recent one will be given children
+     */
     private void MergeOperatorAndVariables(Stack<INode> createdNodes, Stack<String> unprocessedSymbols){
         Operator operatorNode = getOperatorNode(unprocessedSymbols.pop());
 
@@ -46,6 +73,12 @@ public abstract class BasicExpressionParser implements IExpressionParser{
         createdNodes.push(operatorNode);
     }
 
+    /**
+     * Every input of the string representation of the expression need to be parsed into tree representation of the expression.
+     * This method based on the meaning of each character in the string transforms the string into tree.
+     * @param expressionString String representation of the expression
+     * @return Expression in tree format
+     */
     public INode ParseExpressionFromString(String expressionString){
         String[] splittedExpression = expressionString.split(" ");
 
@@ -90,10 +123,16 @@ public abstract class BasicExpressionParser implements IExpressionParser{
         return createdNodes.pop();
     }
 
+    /**
+     * If the character is variable it needs specific handling. It could be assigned to an operator or to a Not node, as the variable
+     * can have negation sign in from of it.
+     * @param input Variable name
+     * @param createdNodes Already created tree nodes
+     */
     private void ParseVariableInput(String input, Stack<INode> createdNodes){
         if(input.startsWith("¬")){
             input = input.substring(1);
-            if(!createdNodes.isEmpty() && createdNodes.peek() instanceof Not){
+            if(!createdNodes.isEmpty() && createdNodes.peek() instanceof Not && ((Not)createdNodes.peek()).LeftSon == null){
                 Not fromStack = (Not)createdNodes.pop();
                 fromStack.setNegatablePart(new Not());
             }
@@ -115,12 +154,20 @@ public abstract class BasicExpressionParser implements IExpressionParser{
     }
 
     @Override
-    public ArrayList<Expression> getExpressions() {
+    public ArrayList<Expression> getExpressions() throws Exception {
         ArrayList<Expression> parsedExpressions = new ArrayList<Expression>();
 
-        for (String expression : tempExpressions){
-            parsedExpressions.add(new Expression(ParseExpressionFromString(expression)));
+        String currentExpression = "";
+        try{
+            for (String expression : tempExpressions){
+                currentExpression = expression;
+                parsedExpressions.add(new Expression(ParseExpressionFromString(expression)));
+            }
         }
+        catch (Exception e) {
+            throw new Exception("Provided expression is not valid: " + currentExpression);
+        }
+
 
         return parsedExpressions;
     }
