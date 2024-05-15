@@ -140,10 +140,6 @@ public class TabloEvaluator {
             pasteToEveryLowerBranch(start.RightSon, whatToInsert);
         }
         if(start.LeftSon != null){
-            System.out.println("right son: " + start.RightSon);
-            System.out.println("left son: " + start.LeftSon);
-            System.out.println("what to insert: " + whatToInsert);
-            System.out.println();
             pasteToEveryLowerBranch(start.LeftSon, whatToInsert);
         }
     }
