@@ -1,0 +1,4 @@
+( p v ¬r ) => p v q v r <=> r
+( p v q v r )
+( p v ¬q v ¬p )
+( p => p v p ) <=> ( q ) => r

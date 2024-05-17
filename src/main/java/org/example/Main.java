@@ -34,8 +34,8 @@ public class Main {
         ArrayList<Expression> expressions = new ArrayList<>();
 
         //WARNING ----- JE NUTNÉ VYPLNIT CESTU K SOUBORU DO UVOZOVEK
-        //NAPŘÍKLAD C:\\cesta\\k\\souboru.text
-        var fileParser = new FileParser("C:\\matfyz\\vyrokynajavu.txt");
+        //NAPŘÍKLAD C:\\cesta\\k\\souboru.txt
+        var fileParser = new FileParser("");
         var commandLineParser = new CommandLineParser();
 
         fileParser.loadInput();
@@ -115,7 +115,8 @@ public class Main {
 
         // ULOŽÍME SI NEGOVANÉ VÝROKY DO SOUBORU
         // WARNING NUTNÉ OPĚT DOPLNIT CESTU K SOUBORU
-        var filePrinter = new FilePrinter("C:\\matfyz\\vyrokynajavuee.txt");
+        // NAPŘÍKLAD C:\\cesta\\k\\souboru.txt
+        var filePrinter = new FilePrinter("");
         filePrinter.Print(expressions);
         System.out.println("--------------------------------------------------");
 
