@@ -27,16 +27,16 @@ public class TabloEvaluator {
      * Decides if the provided expression has solution of not
      * @return True - solution has a solution, otherwise false
      */
-    public boolean isSolvable(){
+    public boolean validForEveryModel(){
 
         _expression.setAllLogicalValuesToNull();
-        _expression.Negate();
+        //_expression.Negate();
         _expression.SimplifyNots(_expression._root);
         _expression._root.setLogicalValue(false);
         var result = buildTablo();
         _foundValid = false;
         isTabloValid(result, new HashMap<>());
-        return _foundValid;
+        return !_foundValid;
     }
 
     private boolean _foundValid = false;
@@ -89,8 +89,11 @@ public class TabloEvaluator {
             unfinishedPart.Extracted = true;
             var copy = unfinishedPart.getCopy();
             copy.Extracted = true;
-            pasteToEveryLowerBranch(tablo, copy);
+            copy.LeftSon = null;
+            copy.RightSon = null;
             buildTabloPart(copy);
+            pasteToEveryLowerBranch(unfinishedPart, copy);
+
         }
         return tablo;
     }
@@ -132,7 +135,8 @@ public class TabloEvaluator {
     private void pasteToEveryLowerBranch(TabloBracket start, TabloBracket whatToInsert){
 
         if(start.RightSon == null && start.LeftSon == null){
-            start.LeftSon = whatToInsert;
+            var copy = whatToInsert.getCopy();
+            start.LeftSon = copy;
             return;
         }
 
@@ -163,6 +167,8 @@ public class TabloEvaluator {
             var newNode = new TabloBracket(root.Value._root.getLeftSon().getCopy());
             newNode.Validity = !root.Validity;
 
+            newNode.Extracted = false;
+
             root.LeftSon = newNode;
         }
 
@@ -174,6 +180,9 @@ public class TabloEvaluator {
                 newBracket.Validity = true;
                 newBracket2.Validity = true;
 
+                newBracket.Extracted = false;
+                newBracket2.Extracted = false;
+
                 newBracket.LeftSon = newBracket2;
 
                 root.LeftSon = newBracket;
@@ -182,6 +191,9 @@ public class TabloEvaluator {
 
                 newBracket.Validity = false;
                 newBracket2.Validity = false;
+
+                newBracket.Extracted = false;
+                newBracket2.Extracted = false;
 
                 root.LeftSon = newBracket;
                 root.RightSon = newBracket2;
@@ -197,6 +209,9 @@ public class TabloEvaluator {
                 newBracket.Validity = true;
                 newBracket2.Validity = true;
 
+                newBracket.Extracted = false;
+                newBracket2.Extracted = false;
+
                 root.LeftSon = newBracket;
                 root.RightSon = newBracket2;
             }
@@ -204,6 +219,9 @@ public class TabloEvaluator {
 
                 newBracket.Validity = false;
                 newBracket2.Validity = false;
+
+                newBracket.Extracted = false;
+                newBracket2.Extracted = false;
 
                 newBracket.LeftSon = newBracket2;
                 root.LeftSon = newBracket;
@@ -218,6 +236,9 @@ public class TabloEvaluator {
                 newBracket.Validity = false;
                 newBracket2.Validity = true;
 
+                newBracket.Extracted = false;
+                newBracket2.Extracted = false;
+
                 root.LeftSon = newBracket;
                 root.RightSon = newBracket2;
             }
@@ -225,6 +246,9 @@ public class TabloEvaluator {
 
                 newBracket.Validity = true;
                 newBracket2.Validity = false;
+
+                newBracket.Extracted = false;
+                newBracket2.Extracted = false;
 
                 newBracket.LeftSon = newBracket2;
                 root.LeftSon = newBracket;
@@ -239,6 +263,9 @@ public class TabloEvaluator {
                 newBracket.Validity = true;
                 newBracket2.Validity = true;
 
+                newBracket.Extracted = false;
+                newBracket2.Extracted = false;
+
                 newBracket.LeftSon = newBracket2;
 
                 root.LeftSon = newBracket;
@@ -250,6 +277,9 @@ public class TabloEvaluator {
                 newBracket3.Validity = true;
                 newBracket4.Validity = true;
 
+                newBracket3.Extracted = false;
+                newBracket4.Extracted = false;
+
                 newBracket3.LeftSon = newBracket4;
 
                 root.RightSon = newBracket3;
@@ -259,6 +289,9 @@ public class TabloEvaluator {
 
                 newBracket.Validity = false;
                 newBracket2.Validity = true;
+
+                newBracket.Extracted = false;
+                newBracket2.Extracted = false;
 
                 newBracket.LeftSon = newBracket2;
 
@@ -270,6 +303,9 @@ public class TabloEvaluator {
 
                 newBracket3.Validity = true;
                 newBracket4.Validity = false;
+
+                newBracket3.Extracted = false;
+                newBracket4.Extracted = false;
 
                 newBracket3.LeftSon = newBracket4;
 

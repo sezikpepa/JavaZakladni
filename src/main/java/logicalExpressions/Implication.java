@@ -21,8 +21,8 @@ public class Implication extends Operator {
     @Override
     public INode getCopy() {
         INode copy = new Implication();
-        copy.setLeftSon(LeftSon);
-        copy.setRightSon(RightSon);
+        copy.setLeftSon(LeftSon.getCopy());
+        copy.setRightSon(RightSon.getCopy());
         copy.setLogicalValue(getLogicalValue());
         return copy;
     }

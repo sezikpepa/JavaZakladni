@@ -63,11 +63,11 @@ public class TabloBracket {
 
         var newValue = new TabloBracket();
 
-        newValue.LeftSon = getCopy(newValue.LeftSon);
-        newValue.RightSon = getCopy(newValue.RightSon);
-        newValue.Extracted = Extracted;
-        newValue.Validity = Validity;
-        newValue.Value = new Expression(Value.getCopy(Value._root));
+        newValue.LeftSon = getCopy(start.LeftSon);
+        newValue.RightSon = getCopy(start.RightSon);
+        newValue.Extracted = start.Extracted;
+        newValue.Validity = start.Validity;
+        newValue.Value = new Expression(start.Value.getCopy(start.Value._root));
 
         return newValue;
     }

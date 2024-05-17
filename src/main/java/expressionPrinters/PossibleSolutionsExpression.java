@@ -28,6 +28,10 @@ public class PossibleSolutionsExpression {
 
         int spaceSize = longestVariable + 5;
 
+        if(solutions.isEmpty()){
+            return "No solutions";
+        }
+
         List<String> variables = solutions.get(0).keySet().stream().sorted().toList();
 
         for(var key : variables){

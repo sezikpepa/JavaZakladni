@@ -24,8 +24,8 @@ public class Or extends Operator{
     @Override
     public INode getCopy() {
         INode copy = new Or();
-        copy.setLeftSon(LeftSon);
-        copy.setRightSon(RightSon);
+        copy.setLeftSon(LeftSon.getCopy());
+        copy.setRightSon(RightSon.getCopy());
         copy.setLogicalValue(getLogicalValue());
         return copy;
     }

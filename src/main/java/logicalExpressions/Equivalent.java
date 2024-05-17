@@ -26,8 +26,8 @@ public class Equivalent extends Operator{
     @Override
     public INode getCopy() {
         INode copy = new Equivalent();
-        copy.setLeftSon(LeftSon);
-        copy.setRightSon(RightSon);
+        copy.setLeftSon(LeftSon.getCopy());
+        copy.setRightSon(RightSon.getCopy());
         copy.setLogicalValue(getLogicalValue());
         return copy;
     }

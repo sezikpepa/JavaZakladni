@@ -16,8 +16,8 @@ public class Not extends Operator{
     @Override
     public INode getCopy() {
         INode copy = new Not();
-        copy.setLeftSon(LeftSon);
-        copy.setRightSon(RightSon);
+        copy.setLeftSon(LeftSon.getCopy());
+        copy.setRightSon(null);
         copy.setLogicalValue(getLogicalValue());
         return copy;
     }

@@ -35,8 +35,8 @@ public class And extends Operator{
     @Override
     public INode getCopy() {
         INode copy = new And();
-        copy.setLeftSon(LeftSon);
-        copy.setRightSon(RightSon);
+        copy.setLeftSon(LeftSon.getCopy());
+        copy.setRightSon(RightSon.getCopy());
         copy.setLogicalValue(getLogicalValue());
         return copy;
     }
