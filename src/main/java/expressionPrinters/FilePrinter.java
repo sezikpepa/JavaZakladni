@@ -1,6 +1,8 @@
 package expressionPrinters;
 
 
+import logicalExpressions.Expression;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,10 +26,10 @@ public class FilePrinter implements ExpressionPrinter{
     }
 
     @Override
-    public void Print(Iterable<String> expressions) throws IOException {
+    public void Print(Iterable<Expression> expressions) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(_filePath))) {
-            for(String expression : expressions){
-                writer.write(expression);
+            for(Expression expression : expressions){
+                writer.write(expression.toString());
                 writer.newLine();
             }
         } catch (IOException e) {

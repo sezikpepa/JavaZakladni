@@ -22,6 +22,7 @@ public class CommandLineParser extends BasicExpressionParser{
      * It reads the input by lines. Every line is different expression
      */
     public void loadInput(){
+        System.out.println("Insert your expressions. After inserting a blank line, input will be ended: ");
         Scanner consoleReader = new Scanner(System.in);
 
         while (consoleReader.hasNextLine()){

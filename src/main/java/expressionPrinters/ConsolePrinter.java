@@ -1,5 +1,7 @@
 package expressionPrinters;
 
+import logicalExpressions.Expression;
+
 import java.io.IOException;
 
 /**
@@ -15,9 +17,9 @@ public class ConsolePrinter implements ExpressionPrinter{
     }
 
     @Override
-    public void Print(Iterable<String> expressions) throws IOException {
-        for (String expression : expressions){
-            System.out.println(expression);
+    public void Print(Iterable<Expression> expressions) throws IOException {
+        for (Expression expression : expressions){
+            System.out.println(expression.toString());
         }
     }
 }

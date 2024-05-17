@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 /**
  * Represents logical expression. It is represented as a tree structure, where every variable and operator is a node in this tree
@@ -124,7 +125,7 @@ public class Expression implements Iterable<INode> {
      * @return Variable names from the expression
      */
     public ArrayList<String> getAllVariables(){
-        return getAllVariablesPart(_root);
+        return getAllVariablesPart(_root).stream().distinct().collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -178,7 +179,7 @@ public class Expression implements Iterable<INode> {
             }
             evaluateExpressionPart(root.getLeftSon());
         }
-        if(root.getRightSon().getLogicalValue() == null){
+        if(root.getRightSon() != null && root.getRightSon().getLogicalValue() == null){
             if(root.getRightSon() instanceof Variable){
                 throw new ArithmeticException("Variable " + root.getRightSon().toString() + " is not set");
             }

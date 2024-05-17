@@ -36,6 +36,7 @@ public class PossibleSolutionsExpression {
         }
         result.append(System.lineSeparator());
         result.append("-".repeat(spaceSize * variables.size()));
+        result.append(System.lineSeparator());
         for(var solution : solutions){
             for(var variable : variables){
                 if(solution.get(variable)){
